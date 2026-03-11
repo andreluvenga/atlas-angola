@@ -387,7 +387,7 @@ title: "{Nome_Prov}",
 content:function(feature){
 
 const nome = feature.graphic.attributes.Nome_Prov || 
-feature.graphic.attributes.ADM2_PT || 
+feature.graphic.attributes.Nome_Munic || 
 feature.graphic.attributes.ADM3_PT;
 
 const valor = feature.graphic.attributes[campo];
