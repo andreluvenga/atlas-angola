@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Pirâmide Etária Interativa</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+    margin: 40px;
+}
+canvas{
+    max-width: 900px;
+}
+</style>
+</head>
+
+<body>
+
+<h2></h2>
+<canvas id="piramide"></canvas>
+
+<script>
+const grupos = [
+"95+","90-94","85-89","80-84","75-79","70-74","60-64","55-59",
+"50-54","45-49","40-44","35-39","30-34","25-29","20-24","15-19",
+"10-14","5-9","0-4"
+];
+
+const homens = [
+-4092,-7607,-13403,-99030,-121625,-184702,-315232,-369448,
+-493325,-630605,-755533,-942602,-1162619,-1380945,-1702930,
+-2351365,-2397273,-2425429,-2574220
+];
+
+const mulheres = [
+9702,14430,25268,119995,142053,208924,348025,399497,
+513386,669654,770363,1002674,1212879,1482849,1879621,
+2470480,2399533,2420932,2582429
+];
+
+const ctx = document.getElementById('piramide');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: grupos,
+        datasets: [
+            {
+                label: 'Homens',
+                data: homens,
+            },
+            {
+                label: 'Mulheres',
+                data: mulheres,
+            }
+        ]
+    },
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.dataset.label + ": " + Math.abs(context.raw).toLocaleString();
+                    }
+                }
+            },
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Pirâmide Etária'
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    callback: function(value) {
+                        return Math.abs(value);
+                    }
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>
