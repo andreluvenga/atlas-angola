@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Gráfico Waffle - População por Cor ou Raça</title>
+<title>Gráfico Waffle - População com 18 ou mais anos,segundo o nível de ensino a frequentar</title>
 
 <style>
 body{
@@ -29,7 +29,7 @@ body{
     display:grid;
     grid-template-columns: repeat(2, 200px);
     justify-content:center;
-    gap:15px 30px;
+    gap:10px 60px;
     text-align: left;
 }
 
@@ -48,7 +48,7 @@ body{
 
 <body>
 
-<h2>Estado Civil</h2>
+<h3>População com 18 ou mais anos,segundo o nível de ensino concluído</h3>
 <p>Cada bloco representa 0,5%</p>
 
 <div id="waffle"></div>
@@ -58,12 +58,12 @@ body{
 <script>
 // Dados
 const dados = [
-    {nome:"Solteiro", valor:13459526, cor:"#f4a582"},
-    {nome:"Casado", valor:9200039, cor:"#92c5de"},
-    {nome:"Separado", valor:468539, cor:"#ffd92f"},
-    {nome:"Divorciado", valor:43133, cor:"#bdbdbd"},
-    {nome:"Viúvo", valor:553366, cor:"#66c2a5"},
-    {nome:"Não Declarado", valor:962657, cor:"#85c"}
+    {nome:"Ensino Primário", valor:2767883, cor:"#f4a582"},
+    {nome:"I Ciclo do Ensino Secundário", valor:4916208, cor:"#92c5de"},
+    {nome:"II Ciclo do Ensino Secundário", valor:3676337, cor:"#ffd92f"},
+    {nome:"Ensino Superior", valor:726546, cor:"#bdbdbd"},
+    {nome:"Nenhum Nível", valor:2478008, cor:"#66c2a5"},
+    {nome:"Não Declarado", valor:33844, cor:"#85c"}
 ];
 
 // Calcular total
