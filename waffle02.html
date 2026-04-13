@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Gráfico Waffle -  Principal fonte de energia/combustível utilizado para cozinhar pelo agregado familiar</title>
 
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+}
+
+#waffle{
+    display: grid;
+    grid-template-columns: repeat(20, 25px);
+    grid-gap: 3px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.bloco{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.legenda{
+    margin-top:10px;
+    display:grid;
+    grid-template-columns: repeat(2, 200px);
+    justify-content:center;
+    gap:10px 60px;
+    text-align: left;
+}
+
+.item-legenda{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.cor{
+    width:20px;
+    height:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h3> Tipo de material usado principalmente nas paredes exteriores das habitações familiares</h3>
+<p>Cada bloco representa 0,5%</p>
+
+<div id="waffle"></div>
+
+<div class="legenda" id="legenda"></div>
+
+<script>
+// Dados
+const dados = [
+    {nome:"Cimento/Bloco", valor:4300360, cor:"#92c5de"},
+    {nome:"Adobe", valor:3394064, cor:"#ffd92f"},
+    {nome:"Pau-a-Pique", valor:644371, cor:"#66c2a5"},
+    {nome:"Outro", valor:420498, cor:"#747f"},
+    {nome:"Zinco", valor:146044, cor:"#bdd"},
+    {nome:"Pedra", valor:89403, cor:"#f4a582"},
+    {nome:"Tijolo", valor:88928, cor:"#85c"},
+    {nome:"Madeira", valor:10912, cor:"#bdbdbd"}
+         
+];
+
+// Calcular total
+const total = dados.reduce((soma,d)=> soma + d.valor,0);
+
+// Criar blocos
+const waffle = document.getElementById("waffle");
+
+dados.forEach(d => {
+    d.percentagem = (d.valor / total) * 100;
+    d.blocos = Math.round(d.percentagem / 0.5);
+});
+
+// Criar os quadrados
+dados.forEach(d => {
+    for(let i=0;i<d.blocos;i++){
+        const div = document.createElement("div");
+        div.className = "bloco";
+        div.style.backgroundColor = d.cor;
+
+        div.title = d.nome + " - " + d.percentagem.toFixed(1) + "%";
+
+        waffle.appendChild(div);
+    }
+});
+
+// Criar legenda
+const legenda = document.getElementById("legenda");
+
+dados.forEach(d => {
+    const item = document.createElement("div");
+    item.className = "item-legenda";
+
+    item.innerHTML = `
+        <div class="cor" style="background:${d.cor}"></div>
+        <div>${d.nome} (${d.percentagem.toFixed(1)}%)</div>
+    `;
+
+    legenda.appendChild(item);
+});
+</script>
+
+</body>
+</html>
