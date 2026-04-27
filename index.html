@@ -11,7 +11,6 @@
 <script src="https://js.arcgis.com/4.29/"></script>
 
 <style>
-
 html,body,#viewDiv{
 height:100%;
 width:100%;
@@ -53,17 +52,23 @@ padding:10px;
 z-index:99;
 }
 
+.esri-popup--is-docked {
+position: absolute !important;
+left: 50%;
+transform: translateX(-50%);
+bottom: -1px;
+}
+
 select{
 width:100%;
-margin-bottom:10px;
+margin-bottom:5px;
 }
 
 button{
 width:100%;
-padding:6px;
+padding:6%;
 margin-top:5px;
 }
-
 </style>
 
 </head>
@@ -72,187 +77,233 @@ margin-top:5px;
 
 <div id="viewDiv"></div>
 
-<!-- PAINEL ESQUERDO -->
-
 <div id="leftPanel">
+    <h4>Indicadores Demográficos</h4>
+    <label>População</label>
+    <select id="populacao">
+      <option value="">Selecionar</option>
+      <option value="Total">População Total</option>
+      <option value="Homens">População Masculina</option>
+      <option value="Mulheres">População Feminina</option>
+    </select>
+    
+    <label>Grupos Etários</label>
+    <select id="getarios">
+      <option value="">Selecionar</option>
+      <option value="Idade_Média"> Idade Média da População</option>
+      <option value="Idade_Mediana">Idade Mediana da População</option>
+      <option value="F0_14_anos">Total da População dos 0 aos 14 anos</option>
+      <option value="F0__17_anos">Total da População dos 0 aos 17 anos</option>
+      <option value="F0_19_anos">Total da População dos 0 aos 19 anos</option>
+      <option value="F2_ou_mais_anos">Total da População dos 2 anos ou mais</option>
+      <option value="População_com_12_ou_mais_anos"> Total da População com 12 ou mais anos</option>
+      <option value="F15_24_anos"> Total da População dos 15 aos 24 anos</option>
+      <option value="F15_ou_mais_anos">Total da População dos 15 ou mais anos</option>
+      <option value="F15_64_anos"> Total da População dos 15 aos 64 anos</option>
+      <option value="F20_29_anos">Total da População dos 20 aos 29 anos</option>
+      <option value="F30_54_anos">Total da População dos 30 aos 54 anos</option>
+      <option value="F55_64_anos">Total da População dos 55 aos 64 anos</option>
+      <option value="F65_ou_mais_anos">Total da População dos 65 anos ou mais</option>
+      <option value="F65_74_anos">Total da População dos 65 aos 74 anos</option>
+      <option value="F75_ou_mais_anos">Total da População dos 75 anos ou mais</option>
+    </select>
+    
+    <label>Estado Civil</label>
+    <select id="estadoCivil">
+      <option value="">Selecionar</option>
+      <option value="Casado_ou_em_União_de_facto">Casados</option>
+      <option value="Solteiro">Solteiros</option>
+      <option value="Viúvo">Viúvos</option>
+      <option value="Divorciado">Divorciados</option>
+      <option value="Separado">Separados</option>
+      <option value="Estado_Civil_Não_declarado">Estado Civíl Não Declarado</option>
+    </select>
+    
+    <label>Registo Civil</label>
+    <select id="rcivil">
+      <option value="">Selecionar</option>
+      <option value="População_com_registo_de_nascimento">População com Registo de Nascimento</option>
+      <option value="População_com_bilhete_de_identidade">População com BI</option>
+    </select>
+    
+    <label>Albinismo</label>
+    <select id="albinismo">
+      <option value="">Selecionar</option>
+      <option value="População_com_albinismo">Total de População com Albinismo</option>
+      </select>
+    
+    <label>Orfandade</label>
+    <select id="orfandade">
+      <option value="">Selecionar</option>
+      <option value="Crianças_com_0___17_anos_que_não_vivem_com_os_pais">Total de Crianças com 0 a 17 anos que não vivem com os Pais</option>
+      <option value="Mãe_vive_noutro_agregado">Total de Crianças com 0 a 17 anos que a Mãe vive noutro Agregado</option>
+      <option value="Pai_vive_noutro_agregado">Total de Crianças com 0 a 17 anos que o Pai vive noutro Agregado</option>
+      <option value="Ambos_vivem_noutro_agregado">Total de Crianças com 0 a 17 anos que Ambos os Pais vivem noutro Agregado</option>
+    </select>
+    
+    <label>Grupos Étnicos</label>
+    <select id="getnicos">
+      <option value="">Selecionar</option>
+      <option value="GE_Quicongo__Kikongu_ou_Congolês_conguês">Grupo Étnico Quicongo</option>
+      <option value="GE_Quimbundu__Kimbundu_ou_Tymbundu_">Grupo Étnico Quimbundu</option>
+      <option value="GE_Lunda_Quioco__Lunda_kioko_ou_Lunda_Tchokwe_Tshokwe_">Grupo Étinico Lunda-Quioco</option>
+      <option value="GE_Umbundu__ou_Ovimbundu_">Grupo Étnico Umbundu</option>
+      <option value="GE_Nhaneca_Humbe__Nyaneka_Lumkumbi_">Grupo Étnico Nhaneca Humbe</option>
+      <option value="GE_Ambó__Vahambo_tanbé_designado_Xikwanyama_">Grupo Étnico Ambó Vahambo</option>
+      <option value="GE_Helelo__Herero__Tchielelo__Tjiherero_">Grupo Étnico Helelo-Herero</option>
+      <option value="GE_Cuangar">Grupo Étnico Cuangar</option>
+      <option value="GE_Khoisan">Grupo Étnico Khoisan</option>
+      <option value="GE_Vátua">Grupo Étnico Vátua</option>
+      <option value="GE_Kwoi">Grupo Étnico Kwoi</option>
+      <option value="GE_Xindonga__Oshindonga_">Grupo Étnico Xindonga</option>
+      <option value="GE_Não_sabe">População que não sabe o seu Grupo Étnico</option>
+      <option value="GE_Outra_Etnia">Outro Grupo Étnico</option>
+    </select>
+    
+    <label>Lingua Materna</label>
+    <select id="lmaterna">
+      <option value="">Selecionar</option>
+      <option value="LM_Português">Total da População que tem o Português como Língua Materna</option>
+      <option value="LM_Kimbundu">Total da População que tem o Quimbundu como Língua Materna</option>
+      <option value="LM_Umbundu">Total da População que tem o Umbundu como Língua Materna</option>
+      <option value="LM_Kikongo">Total da População que tem o Kikongo como Língua Materna</option>
+      <option value="LM_Cokue_(Chokwe/Kioko)">Total da População que tem o Cokue(Chokwe/Kioko) como Língua Materna</option>
+      <option value="LM_Olunyaneka_(Nhaneka)">Total da População que tem o Olunyaneka(Nhaneka) como Língua Materna</option>
+      <option value="LM_Nganguela">Total da População que tem o Nganguela como Língua Materna</option>
+      <option value="LM_Oxikwanhama_(Kwanhama)">Total da População que tem o Oxikwanhama(Kwanhama) como Língua Materna</option>
+      <option value="LM_Ifyoti_(Fiote)">Total da População que tem o Ifyoti(Fiote) como Língua Materna</option>
+      <option value="LM_Muhumbi">Total da População que tem o Muhumbi como Língua Materna</option>
+      <option value="LM_Luvale">Total da População que tem o Luvale como Língua Materna</option>
+      <option value="LM_Khoisan">Total da População que tem o Khoisan como Língua Materna</option>
+      <option value="LM_Mandarim">Total da População que tem o Mandarim como Língua Materna</option>
+      <option value="LM_Inglês">Total da População que tem o Inglês como Língua Materna</option>
+      <option value="LM_Francês">Total da População que tem o Francês como Língua Materna</option>
+      <option value="LM_Espanhol">Total da População que tem o Espanhol como Língua Materna</option>
+      <option value="LM_Alemão">Total da População que tem o Alemão como Língua Materna</option>
+      <option value="LM_Russo">Total da População que tem o Russo como Língua Materna</option>
+      <option value="LM_Árabe">Total da População que tem o Árabe como Língua Materna</option>
+      <option value="LM_Lingala">Total da População que tem o Lingala como Língua Materna</option>
+      <option value="LM_Criolo">Total da População que tem o Criolo como Língua Materna</option>
+      <option value="LM_Outras_línguas">Total da População que tem Outras_línguas como Língua Materna</option>
+      <option value="LM_Não_sabe">Total da População que Não_sabe a sua Língua Materna</option>
+    </select>
+    
+    <label>Religião</label>
+    <select id="religiao">
+      <option value="">Selecionar</option>
+      <option value="Católica">Total da População que professa a Religião Católica </option>
+      <option value="Evangélica">Total da População que professa a Religião Evangélica</option>
+      <option value="Metodista">Total da População que professa a Religião Metodista</option>
+      <option value="Tocoísta">Total da População que professa a Religião Tocoista</option>
+      <option value="Bom_Deus">Total da População que professa a Religião Bom Deus </option>
+      <option value="Islâmica__Muçulmana">Total da População que professa a Religião Islâmica/Muçulmana</option>
+      <option value="Animista">Total da População que professa a Religião Animista</option>
+      <option value="Judaica">Total da População que professa a Religião Judaica</option>
+      <option value="Protestante">Total da População que professa a Religião Protestante </option>
+      <option value="Universal_do_reino_de_Deus">Total da População que professa a Religião Universal do Reino de Deus</option>
+      <option value="Nova_apostólica">Total da População que professa a Religião Nova Apostólica</option>
+      <option value="Kimbanguista">Total da População que professa a Religião Kimbanguista</option>
+      <option value="Josafat">Total da População que professa a Religião Josafat </option>
+      <option value="Assembleia_de_Deus_peteconstal">Total da População que professa a Religião Assembleia de Deus Peteconstal</option>
+      <option value="Testemunha_de_Jeová">Total da População que professa a Religião Testemunha de Jeová</option>
+      <option value="Adventista">Total da População que professa a Religião Adventista</option>
+      <option value="Baptista">Total da População que professa a Religião Baptista </option>
+      <option value="Mensagem_dos_últimos_Tempos">Total da População que professa a Religião Mensagem dos Últimos Tempos</option>
+      <option value="Sem_religião">Total da População que não professa alguma Religião</option>
+      <option value="Outra_religião">Total da População que professa outra Religião</option>
+      <option value="Não_sabe_Não_respondeu_a_religião">Total da População que não sabe ou não respondeu a Religião que professa</option>
+    </select>
+    
+    <label>Educação</label>
+    <select id="educacao">
+      <option value="">Selecionar</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15anos_taxa_Alfabetiza">Taxa de Alfabetização 15 anos ou mais que Sabe ler e Escrever</option>, 
+      <option value="F15_24anos_taxa_Alfabetiza">Taxa de Alfabetização 15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F5ou_mais_anos__a__frequentar">População com 5 anos ou mais a frequentar Escola</option>
+      <option value="F5ou_mais_anos__alguma_vez__frequentou">População com 5 anos ou mais Alguma vez frequentou Escola</option>
+      <option value="F5ou_mais_anos__nunca__frequentou">População com 5 anos ou nunca frequentou Escola</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+      <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
+      <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
+    </select>
+    
+    <label>Agregado Familiar</label>
+    <select id="Agregado">
+      <option value="">Selecionar</option>
+      <option value="F15_24_anos">Total de Agregados Familiares</option>
+      <option value="F15_64_anos">Total de Agregados Familiares Com Electricidade Pública</option>
+    </select>
+    
+    <label>Habitação</label>
+    <select id="habitacao">
+      <option value="">Selecionar</option>
+      <option value="População_Habitações_familiares">Total de População na Habitações Familiares</option>
+      <option value="População_Habitações_colectivas">Total de População na Habitações Colectivas</option>
+      <option value="População_Sem_abrigo">Total de População sem Abrigo</option>
+    </select>
+    
+    <button id="limpar">Limpar Indicador</button>
+    
+    </div>
 
-<h4>Indicadores Demográficos</h4>
-
-<label>População</label>
-<select id="populacao">
-  <option value="">Selecionar</option>
-  <option value="Total">População Total</option>
-  <option value="Homens">População Masculina</option>
-  <option value="Mulheres">População Feminina</option>
-</select>
-
-<label>Grupos Etários</label>
-<select id="getarios">
-  <option value="">Selecionar</option>
-  <option value="Idade_Média"> Idade Média da População</option>
-  <option value="Idade_Mediana">Idade Mediana da População</option>
-  <option value="F0_14_anos">Total da População dos 0 aos 14 anos</option>
-  <option value="F0__17_anos">Total da População dos 0 aos 17 anos</option>
-  <option value="F0_19_anos">Total da População dos 0 aos 19 anos</option>
-  <option value="F2_ou_mais_anos">Total da População dos 2 anos ou mais</option>
-  <option value="População_com_12_ou_mais_anos"> Total da População com 12 ou mais anos</option>
-  <option value="F15_24_anos"> Total da População dos 15 aos 24 anos</option>
-  <option value="F15_ou_mais_anos">Total da População dos 15 ou mais anos</option>
-  <option value="F15_64_anos"> Total da População dos 15 aos 64 anos</option>
-  <option value="F20_29_anos">Total da População dos 20 aos 29 anos</option>
-  <option value="F30_54_anos">Total da População dos 30 aos 54 anos</option>
-  <option value="F55_64_anos">Total da População dos 55 aos 64 anos</option>
-  <option value="F65_ou_mais_anos">Total da População dos 65 anos ou mais</option>
-  <option value="F65_74_anos">Total da População dos 65 aos 74 anos</option>
-  <option value="F75_ou_mais_anos">Total da População dos 75 anos ou mais</option>
-</select>
-
-<label>Estado Civil</label>
-<select id="estadoCivil">
-  <option value="">Selecionar</option>
-  <option value="Casado_ou_em_União_de_facto">Casados</option>
-  <option value="Solteiro">Solteiros</option>
-  <option value="Viúvo">Viúvos</option>
-  <option value="Divorciado">Divorciados</option>
-  <option value="Separado">Separados</option>
-  <option value="Estado_Civil_Não_declarado">Estado Civíl Não Declarado</option>
-</select>
-
-<label>Registo Civil</label>
-<select id="rcivil">
-  <option value="">Selecionar</option>
-  <option value="População_com_registo_de_nascimento">População com Registo de Nascimento</option>
-  <option value="População_com_bilhete_de_identidade">População com BI</option>
-</select>
-
-<label>Deficiência e Albinismo</label>
-<select id="defalbinismo">
-  <option value="">Selecionar</option>
-  <option value="População_com_albinismo">Total de População com Albinismo</option>
-  </select>
-
-<label>Orfandade</label>
-<select id="orfandade">
-  <option value="">Selecionar</option>
-  <option value="Crianças_com_0___17_anos_que_não_vivem_com_os_pais">Total de Crianças com 0 a 17 anos que não vivem com os Pais</option>
-  <option value="Mãe_vive_noutro_agregado">Total de Crianças com 0 a 17 anos que a Mãe vive noutro Agregado</option>
-  <option value="Pai_vive_noutro_agregado">Total de Crianças com 0 a 17 anos que o Pai vive noutro Agregado</option>
-  <option value="Ambos_vivem_noutro_agregado">Total de Crianças com 0 a 17 anos que Ambos os Pais vivem noutro Agregado</option>
-</select>
-
-<label>Grupos Étnicos</label>
-<select id="getnicos">
-  <option value="">Selecionar</option>
-  <option value="GE_Quicongo__Kikongu_ou_Congolês_conguês">Grupo Étnico Quicongo</option>
-  <option value="GE_Quimbundu__Kimbundu_ou_Tymbundu_">Grupo Étnico Quimbundu</option>
-  <option value="GE_Lunda_Quioco__Lunda_kioko_ou_Lunda_Tchokwe_Tshokwe_">Grupo Étinico Lunda-Quioco</option>
-  <option value="GE_Umbundu__ou_Ovimbundu_">Grupo Étnico Umbundu</option>
-  <option value="GE_Nhaneca_Humbe__Nyaneka_Lumkumbi_">Grupo Étnico Nhaneca Humbe</option>
-  <option value="GE_Ambó__Vahambo_tanbé_designado_Xikwanyama_">Grupo Étnico Ambó Vahambo</option>
-  <option value="GE_Helelo__Herero__Tchielelo__Tjiherero_">Grupo Étnico Helelo-Herero</option>
-  <option value="GE_Cuangar">Grupo Étnico Cuangar</option>
-  <option value="GE_Khoisan">Grupo Étnico Khoisan</option>
-  <option value="GE_Vátua">Grupo Étnico Vátua</option>
-  <option value="GE_Kwoi">Grupo Étnico Kwoi</option>
-  <option value="GE_Xindonga__Oshindonga_">Grupo Étnico Xindonga</option>
-  <option value="GE_Não_sabe">População que não sabe o seu Grupo Étnico</option>
-  <option value="GE_Outra_Etnia">Outro Grupo Étnico</option>
-</select>
-
-<label>Lingua Materna</label>
-<select id="lmaterna">
-  <option value="">Selecionar</option>
-  <option value="LM_Português">Total da População que tem o Português como Língua Materna</option>
-  <option value="LM_Kimbundu">Total da População que tem o Quimbundu como Língua Materna</option>
-  <option value="LM_Umbundu">Total da População que tem o Umbundu como Língua Materna</option>
-  <option value="LM_Kikongo">Total da População que tem o Kikongo como Língua Materna</option>
-</select>
-
-<label>Religião</label>
-<select id="religiao">
-  <option value="">Selecionar</option>
-  <option value="Católica">Total da População que professa a Religião Católica </option>
-  <option value="Evangélica">Total da População que professa a Religião Evangélica</option>
-  <option value="Metodista">Total da População que professa a Religião Metodista</option>
-  <option value="Tocoísta">Total da População que professa a Religião Tocoista</option>
-</select>
-
-<label>Educação</label>
-<select id="educacao">
-  <option value="">Selecionar</option>
-  <option value="F15_ou_mais_anos_que_sabe_ler_e_escrever">15 anos ou mais que Sabe ler e Escrever</option>
-  <option value="F15_24_anos_que_sabe_ler_e_escrever">15 a 24 anos que Sabe ler e Escrever</option>
-</select>
-
-<label>Agregado Familiar</label>
-<select id="Agregado">
-  <option value="">Selecionar</option>
-  <option value="F15_24_anos">Total de Agregados Familiares</option>
-  <option value="F15_64_anos">Total de Agregados Familiares Com Electricidade Pública</option>
-</select>
-
-<label>Habitação</label>
-<select id="habitacao">
-  <option value="">Selecionar</option>
-  <option value="População_Habitações_familiares">Total de População na Habitações Familiares</option>
-  <option value="População_Habitações_colectivas">Total de População na Habitações Colectivas</option>
-  <option value="População_Sem_abrigo">Total de População sem Abrigo</option>
-</select>
-
-<button id="limpar">Limpar Indicador</button>
-
-</div>
-
-<!-- PAINEL SUPERIOR DIREITO -->
+<!-- PAINEL DIREITO -->
 
 <div id="topRightPanel">
-
 <h4>Unidade Territorial</h4>
-
 <select id="territorio">
 <option value="provincia">Província</option>
 <option value="municipio">Município</option>
-<option value="comuna">Comuna</option>
 </select>
 
 <h4>Basemap</h4>
-
 <select id="basemapSelect">
 <option value="streets">Vias</option>
 <option value="satellite">Imagem</option>
 <option value="topo-vector">Topográfico</option>
 <option value="gray-vector">Cinza</option>
 </select>
-
 </div>
 
 <!-- LEGENDA -->
 
 <div id="bottomRightPanel">
+    <details open>
+    <summary><b>Legenda</b></summary>
+    <div id="legendDiv"></div>
+    </details>
+    </div>
 
-<details open>
-<summary><b>Legenda</b></summary>
-<div id="legendDiv"></div>
-</details>
-
-</div>
 
 <script>
 
 require([
-
 "esri/Map",
 "esri/views/MapView",
 "esri/layers/FeatureLayer",
 "esri/widgets/Legend",
-"esri/smartMapping/renderers/color"
-
-], function(Map,MapView,FeatureLayer,Legend,colorRendererCreator){
-
-/* CAMADAS */
+"esri/smartMapping/renderers/color",
+"esri/widgets/Print"
+], function(Map,MapView,FeatureLayer,Legend,colorRendererCreator,Print){
 
 const camadaProvincia = new FeatureLayer({
-url:"https://services9.arcgis.com/P9hzJERM3hbkT6mx/arcgis/rest/services/Angola/FeatureServer",
+url:"https://services9.arcgis.com/P9hzJERM3hbkT6mx/arcgis/rest/services/Provincia_02/FeatureServer",
 title:"Províncias"
 });
 
@@ -262,17 +313,22 @@ title:"Municípios",
 visible:false
 });
 
-const camadaComuna = new FeatureLayer({
-url:"https://services9.arcgis.com/P9hzJERM3hbkT6mx/arcgis/rest/services/Angola/FeatureServer/2",
-title:"Comunas",
-visible:false
+const limiteProvincias = new FeatureLayer({
+url:"https://services9.arcgis.com/P9hzJERM3hbkT6mx/arcgis/rest/services/Provincia_02/FeatureServer",
+visible:false,
+renderer:{
+type:"simple",
+symbol:{
+type:"simple-fill",
+color:[0,0,0,0],
+outline:{color:[0,0,0,1],width:2}
+}
+}
 });
-
-/* MAPA */
 
 const map = new Map({
 basemap:"streets",
-layers:[camadaProvincia,camadaMunicipio,camadaComuna]
+layers:[camadaProvincia,camadaMunicipio,limiteProvincias]
 });
 
 const view = new MapView({
@@ -282,32 +338,40 @@ center:[17.5,-12],
 zoom:5
 });
 
-/* LEGENDA */
+/* EXPORTAÇÃO */
+
+const print = new Print({
+view: view,
+printServiceUrl:"https://utility.arcgisonline.com/ArcGIS/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task"
+});
+
+view.ui.add(print,"top-right");
+
+/* POPUP */
+
+view.popup.dockEnabled = true;
+view.popup.dockOptions = {
+position:"top-center",
+breakpoint:false,
+buttonEnabled:false
+};
 
 new Legend({
 view:view,
 container:"legendDiv"
 });
 
-/* DETECTAR CAMADA ACTIVA */
-
 function camadaActiva(){
-
 if(camadaProvincia.visible) return camadaProvincia;
 if(camadaMunicipio.visible) return camadaMunicipio;
-if(camadaComuna.visible) return camadaComuna;
-
 }
 
-/* CORES POR INDICADOR */
-
 const cores={
-
 populacao:["#f1eef6","#0570b0"],
 getarios:["#ffffcc","#800026"],
 estadoCivil:["#fee5d9","#a50f15"],
 rcivil:["#e5f5e0","#006d2c"],
-defalbinismo:["#f2f0f7","#54278f"],
+albinismo:["#f2f0f7","#54278f"],
 orfandade:["#feebe2","#ae017e"],
 getnicos:["#fff5cc","#cc7a00"],
 lmaterna:["#edf8fb","#006d2c"],
@@ -315,23 +379,18 @@ religiao:["#fff5f0","#99000d"],
 educacao:["#f2f0f7","#6a51a3"],
 Agregado:["#f2f2f2","#4d4d4d"],
 habitacao:["#ffffb2","#e31a1c"]
-
 };
-
-/* RENDERER INTELIGENTE */
 
 async function aplicarRenderer(campo,grupo){
 
 const layer = camadaActiva();
 
 const rendererResponse = await colorRendererCreator.createClassBreaksRenderer({
-
 layer:layer,
 view:view,
 field:campo,
 classificationMethod:"natural-breaks",
 numClasses:4
-
 });
 
 const renderer = rendererResponse.renderer;
@@ -343,196 +402,114 @@ renderer.classBreakInfos.forEach((classe,i)=>{
 
 const t = i/(renderer.classBreakInfos.length-1);
 
-const r = Math.round(
-parseInt(corInicial.substring(1,3),16)*(1-t) +
-parseInt(corFinal.substring(1,3),16)*t
-);
-
-const g = Math.round(
-parseInt(corInicial.substring(3,5),16)*(1-t) +
-parseInt(corFinal.substring(3,5),16)*t
-);
-
-const b = Math.round(
-parseInt(corInicial.substring(5,7),16)*(1-t) +
-parseInt(corFinal.substring(5,7),16)*t
-);
+const r = Math.round(parseInt(corInicial.substring(1,3),16)*(1-t) + parseInt(corFinal.substring(1,3),16)*t);
+const g = Math.round(parseInt(corInicial.substring(3,5),16)*(1-t) + parseInt(corFinal.substring(3,5),16)*t);
+const b = Math.round(parseInt(corInicial.substring(5,7),16)*(1-t) + parseInt(corFinal.substring(5,7),16)*t);
 
 classe.symbol.color = [r,g,b,0.9];
+classe.symbol.outline = {color:[0,0,0,1],width:1.5};
 
 });
 
 layer.renderer = renderer;
 
+/* POPUP CORRIGIDO */
 
-/* MELHORAR VISIBILIDADE DOS LIMITES */
+layer.popupEnabled = true;
 
-renderer.classBreakInfos.forEach(function(classe){
+layer.popupTemplate = {
 
-classe.symbol.outline = {
-color: [0,0,0,1],   // preto
-width: 1.5          // espessura da linha
-};
+title: function(feature){
+const a = feature.graphic.attributes;
 
-});
+if(layer === camadaProvincia){
+return a.Provincia;
+}
 
-layer.renderer = renderer;
+if(layer === camadaMunicipio){
+return a.Nome_Munic || "Sem nome";
+}
+},
 
-/* POPUP */
+content: function(feature){
 
-layer.popupEnabled=true;
+const a = feature.graphic.attributes;
+const valor = a[campo] ?? "Sem dados";
 
-layer.popupTemplate={
-title: "{Nome_Prov}",
-content:function(feature){
+if(layer === camadaProvincia){
+return `
+<b>Província:</b> ${a.Provincia}<br>
+<b>${campo}:</b> ${valor}
+`;
+}
 
-const nome = feature.graphic.attributes.Nome_Prov || 
-feature.graphic.attributes.Nome_Munic || 
-feature.graphic.attributes.ADM3_PT;
-
-const valor = feature.graphic.attributes[campo];
-
-return "<b>"+nome+"</b><br>"+campo+": "+valor;
-
+if(layer === camadaMunicipio){
+return `
+<b>Província:</b> ${a.Nome_Prov || "Sem nome"}<br>
+<b>Município:</b> ${a.Nome_Munic || "Sem nome"}<br>
+<b>${campo}:</b> ${valor}
+`;
+}
 }
 };
 
+/* LABELS */
+
+if(layer === camadaProvincia){
+layer.labelingInfo=[{
+labelExpressionInfo:{expression:`Text($feature.${campo}, "#,###")`},
+symbol:{type:"text",color:"black",haloColor:"white",haloSize:"1px",font:{size:10,weight:"bold"}},
+labelPlacement:"center-center"
+}];
+layer.labelsVisible=true;
+}else{
+layer.labelsVisible=false;
 }
 
-/* EVENTOS INDICADORES */
+}
 
-document.getElementById("populacao").addEventListener("change",function(e){
+/* EVENTOS */
 
-if(e.target.value)
-aplicarRenderer(e.target.value,"populacao");
-
+["populacao","getarios","estadoCivil","rcivil","albinismo","orfandade","getnicos","lmaterna","religiao","educacao","Agregado","habitacao"].forEach(id=>{
+document.getElementById(id).addEventListener("change",function(e){
+if(e.target.value){
+aplicarRenderer(e.target.value,id);
+}
+});
 });
 
-document.getElementById("getarios").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"getarios");
-
-});
-
-document.getElementById("estadoCivil").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"estadoCivil");
-
-});
-
-document.getElementById("rcivil").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"rcivil");
-
-});
-
-document.getElementById("defalbinismo").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"defalbinismo");
-
-});
-
-document.getElementById("orfandade").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"orfandade");
-
-});
-
-document.getElementById("getnicos").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"getnicos");
-
-});
-
-document.getElementById("lmaterna").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"lmaterna");
-
-});
-
-document.getElementById("religiao").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"religiao");
-
-});
-
-document.getElementById("educacao").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"educacao");
-
-});
-
-document.getElementById("Agregado").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"Agregado");
-
-});
-
-document.getElementById("habitacao").addEventListener("change",function(e){
-
-if(e.target.value)
-aplicarRenderer(e.target.value,"habitacao");
-
-});
-
-/* POPUP AO PASSAR CURSOR */
+/* HOVER */
 
 view.on("pointer-move",function(event){
-
 view.hitTest(event).then(function(response){
-
-const results=response.results.filter(function(r){
-
-return r.graphic.layer===camadaActiva();
-
-});
+const results=response.results.filter(r=>r.graphic.layer===camadaActiva());
 
 if(results.length){
-
-view.popup.open({
-
-location:event.mapPoint,
-features:[results[0].graphic]
-
-});
-
+const g = results[0].graphic;
+if(view.popup.selectedFeature !== g){
+view.popup.open({features:[g],location:null});
 }
-
+}else{
+view.popup.close();
+}
+});
 });
 
-});
-
-/* MUDAR TERRITÓRIO */
+/* TERRITÓRIO */
 
 document.getElementById("territorio").addEventListener("change",function(e){
 
 camadaProvincia.visible=false;
 camadaMunicipio.visible=false;
-camadaComuna.visible=false;
 
 if(e.target.value==="provincia"){
 camadaProvincia.visible=true;
-view.goTo(camadaProvincia.fullExtent);
+limiteProvincias.visible=false;
 }
 
 if(e.target.value==="municipio"){
 camadaMunicipio.visible=true;
-view.goTo(camadaMunicipio.fullExtent);
-}
-
-if(e.target.value==="comuna"){
-camadaComuna.visible=true;
-view.goTo(camadaComuna.fullExtent);
+limiteProvincias.visible=true;
 }
 
 });
@@ -540,9 +517,7 @@ view.goTo(camadaComuna.fullExtent);
 /* BASEMAP */
 
 document.getElementById("basemapSelect").addEventListener("change",function(e){
-
 map.basemap=e.target.value;
-
 });
 
 /* LIMPAR */
@@ -551,7 +526,10 @@ document.getElementById("limpar").addEventListener("click",function(){
 
 camadaProvincia.renderer=null;
 camadaMunicipio.renderer=null;
-camadaComuna.renderer=null;
+
+camadaProvincia.labelsVisible=false;
+
+view.popup.close();
 
 });
 
