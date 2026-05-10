@@ -167,11 +167,11 @@ margin-top:5px;
       <option value="LM_Kimbundu">Total da População que tem o Quimbundu como Língua Materna</option>
       <option value="LM_Umbundu">Total da População que tem o Umbundu como Língua Materna</option>
       <option value="LM_Kikongo">Total da População que tem o Kikongo como Língua Materna</option>
-      <option value="LM_Cokue_(Chokwe/Kioko)">Total da População que tem o Cokue(Chokwe/Kioko) como Língua Materna</option>
-      <option value="LM_Olunyaneka_(Nhaneka)">Total da População que tem o Olunyaneka(Nhaneka) como Língua Materna</option>
+      <option value="LM_Cokue__Chokwe_Kioko_">Total da População que tem o Cokue(Chokwe/Kioko) como Língua Materna</option>
+      <option value="LM_Olunyaneka__Nhaneka_">Total da População que tem o Olunyaneka(Nhaneka) como Língua Materna</option>
       <option value="LM_Nganguela">Total da População que tem o Nganguela como Língua Materna</option>
-      <option value="LM_Oxikwanhama_(Kwanhama)">Total da População que tem o Oxikwanhama(Kwanhama) como Língua Materna</option>
-      <option value="LM_Ifyoti_(Fiote)">Total da População que tem o Ifyoti(Fiote) como Língua Materna</option>
+      <option value="LM_Oxikwanhama__Kwanhama_">Total da População que tem o Oxikwanhama(Kwanhama) como Língua Materna</option>
+      <option value="LM_Ifyoti__Fiote_">Total da População que tem o Ifyoti(Fiote) como Língua Materna</option>
       <option value="LM_Muhumbi">Total da População que tem o Muhumbi como Língua Materna</option>
       <option value="LM_Luvale">Total da População que tem o Luvale como Língua Materna</option>
       <option value="LM_Khoisan">Total da População que tem o Khoisan como Língua Materna</option>
@@ -349,7 +349,7 @@ margin-top:5px;
       <option value="Pratica_Piscatória_Aquicul_Maritima">Agregados familiares que praticam a aquicultura marítima como actividade piscatória por conta própria</option>
       <option value="Tot_Agre_Activi_Piscatoria">Agregados familiares com a actividade piscatória nos últimos 12 meses</option>
       <option value="Posse_Bens_Rádio">Rádio como posse de bens que funcionam em casa pelo agregado familiar</option>
-      <option value="Posse_Bens_Televisão">Telavisão como posse de bens que funcionam em casa pelo agregado familiar</option>
+      <option value="Posse_Bens_Televisão">Televisão como posse de bens que funcionam em casa pelo agregado familiar</option>
       <option value="Posse_Bens_Telefone_Fixo">Telefone fixo como posse de bens que funcionam em casa pelo agregado familiar</option>
       <option value="Posse_Bens_Celular_Móvel_Smartphone">Celular,Movél ou smartphone como posse de bens que funcionam em casa pelo agregado familiar</option>
       <option value="Posse_Bens_Tablet">Tablet como posse de bens que funcionam em casa pelo agregado familiar</option>
@@ -489,12 +489,14 @@ require([
 
 const camadaProvincia = new FeatureLayer({
 url:"https://services9.arcgis.com/P9hzJERM3hbkT6mx/arcgis/rest/services/Provincia_Tot/FeatureServer",
-title:"Províncias"
+title:"Províncias",
+outFields:["Prov"]
 });
 
 const camadaMunicipio = new FeatureLayer({
 url:"https://services9.arcgis.com/P9hzJERM3hbkT6mx/arcgis/rest/services/Map_Munic_plat/FeatureServer",
 title:"Municípios",
+outFields:["Prov", "Muni"],
 visible:false
 });
 
